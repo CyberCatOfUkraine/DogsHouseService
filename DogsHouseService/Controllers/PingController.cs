@@ -9,9 +9,9 @@ namespace DogsHouseService.Controllers
     {
 
         [HttpGet(Name = "ping")]
-        public string Get()
+        public async Task<string> Get()
         {
-            return "Dogs house service. Version 1.0.1";
+            return await Task.Run(() => { return "Dogs house service. Version 1.0.1"; });
         }
     }
 }
