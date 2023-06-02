@@ -4,16 +4,12 @@ namespace DogsHouseService.Model
 {
     public class Dog
     {
+        public Dog()
+        {
+
+        }
         public Dog(string name, string color, int tailLength, int weight)
         {
-            Name = name;
-            Color = color;
-            TailLength = tailLength;
-            Weight = weight;
-        }
-        public Dog(int id,string name, string color, int tailLength, int weight)
-        {
-            Id = id;
             Name = name;
             Color = color;
             TailLength = tailLength;

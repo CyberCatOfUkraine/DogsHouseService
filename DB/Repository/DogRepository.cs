@@ -1,18 +1,12 @@
 ﻿using DB.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DB.Repository
 {
     public class DogRepository : IRepository<Dog>
     {
-        public DogRepository(DbSet<Dog> dogs,DbContext context)
+        public DogRepository(DbSet<Dog> dogs, DbContext context)
         {
             _dogs = dogs;
             _context = context;
@@ -33,24 +27,24 @@ namespace DB.Repository
             _context.SaveChangesAsync().Wait();
         }
 
-        public IEnumerable<Dog>? Find(Expression<Func<Dog, bool>> predicate)
+        public IEnumerable<Dog> Find(Expression<Func<Dog, bool>> predicate)
         {
             var d = async delegate ()
             {
                 return await Task.Run(() => { return _dogs.Where(predicate).ToList(); });
             };
-           return d.Invoke().Result;
+            return d.Invoke().Result;
         }
         public IEnumerable<Dog> GetAll()
         {
-            return _dogs;
+            return _dogs.ToList();
         }
-        public async void Remove(Dog entity)
+        public void Remove(Dog entity)
         {
             _dogs.Remove(entity);
             _context.SaveChanges();
         }
-        public async void RemoveRange(IEnumerable<Dog> entities)
+        public void RemoveRange(IEnumerable<Dog> entities)
         {
             _dogs.RemoveRange(entities);
             _context.SaveChanges();
